@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Esteira de Produtos - Gabriel Honrar</title>
+<style>
+  :root{
+    --bg:#080c13; --card:#101620; --card2:#161e2a; --line:#1e2a3b;
+    --txt:#e2e8f0; --mut:#64748b; --accent:#2563EB; --accent2:#3b82f6;
+    --ok:#10b981; --warn:#f59e0b; --gold:#eab308;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--txt);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;
+    line-height:1.6;min-height:100vh}
+  /* HERO */
+  .hero{
+    background:linear-gradient(160deg,#0d1829 0%,#080c13 55%,#070a10 100%);
+    border-bottom:1px solid var(--line);
+    padding:60px 24px 52px;text-align:center;position:relative;overflow:hidden;
+  }
+  .hero::before{
+    content:"";position:absolute;inset:0;
+    background:radial-gradient(ellipse 80% 60% at 50% 0%,rgba(37,99,235,.12),transparent);
+    pointer-events:none;
+  }
+  .hero-label{font-size:11px;letter-spacing:.18em;text-transform:uppercase;
+    color:var(--accent2);margin-bottom:16px;font-weight:700}
+  .hero h1{font-size:clamp(28px,5vw,48px);font-weight:900;letter-spacing:-.02em;
+    line-height:1.1;margin-bottom:16px;max-width:720px;margin-inline:auto}
+  .hero p{color:var(--mut);font-size:16px;max-width:560px;margin-inline:auto;margin-bottom:28px}
+  .hero-badges{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+  .badge{display:inline-flex;align-items:center;gap:6px;
+    background:rgba(37,99,235,.12);border:1px solid rgba(37,99,235,.28);
+    color:#93c5fd;font-size:12px;font-weight:600;
+    padding:6px 14px;border-radius:20px}
+  /* WRAP */
+  .wrap{max-width:1040px;margin:0 auto;padding:0 24px}
+  /* INTRO STORY */
+  .story{padding:56px 0 0}
+  .story-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
+  @media(max-width:680px){.story-grid{grid-template-columns:1fr}}
+  .story-stat{
+    background:var(--card);border:1px solid var(--line);border-radius:20px;
+    padding:32px;text-align:center;
+  }
+  .stat-num{font-size:52px;font-weight:900;letter-spacing:-.03em;color:var(--accent2);
+    line-height:1;margin-bottom:8px}
+  .stat-label{font-size:13px;color:var(--mut);line-height:1.4}
+  .story-text h2{font-size:28px;font-weight:800;letter-spacing:-.01em;margin-bottom:16px}
+  .story-text p{color:#94a3b8;font-size:15px;margin-bottom:12px}
+  .story-text strong{color:var(--txt)}
+  /* SECTION TITLE */
+  .sec-title{text-align:center;padding:64px 0 40px}
+  .sec-title h2{font-size:clamp(22px,4vw,36px);font-weight:900;letter-spacing:-.02em;
+    margin-bottom:10px}
+  .sec-title p{color:var(--mut);font-size:15px;max-width:520px;margin-inline:auto}
+  /* LADDER */
+  .ladder{position:relative;padding:0 0 60px}
+  .ladder-line{
+    position:absolute;left:50%;top:0;bottom:0;width:2px;
+    background:linear-gradient(180deg,var(--accent) 0%,rgba(37,99,235,.1) 100%);
+    transform:translateX(-50%);
+  }
+  @media(max-width:700px){.ladder-line{left:20px}}
+  /* STEP */
+  .step{
+    display:grid;grid-template-columns:1fr 48px 1fr;
+    gap:0 0;align-items:start;margin-bottom:36px;
+  }
+  @media(max-width:700px){
+    .step{grid-template-columns:44px 1fr;gap:0 16px}
+    .step .side-right{grid-column:2}
+    .step .side-left{display:none}
+  }
+  .step-left{text-align:right;padding-right:28px;padding-top:12px}
+  .step-right{padding-left:28px;padding-top:12px}
+  @media(max-width:700px){
+    .step-left{text-align:left;padding:0}
+    .step-right{padding:0}
+  }
+  .step-dot{
+    width:48px;height:48px;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    font-size:18px;font-weight:900;flex-shrink:0;
+    position:relative;z-index:1;
+    border:2px solid transparent;
+  }
+  .step-card{
+    background:var(--card);border:1px solid var(--line);border-radius:16px;
+    padding:20px 22px;display:inline-block;max-width:380px;width:100%;
+    transition:border-color .2s;
+  }
+  .step-card:hover{border-color:rgba(37,99,235,.4)}
+  .step-tag{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+    padding:3px 10px;border-radius:12px;display:inline-block;margin-bottom:10px}
+  .step-name{font-size:18px;font-weight:800;margin-bottom:4px;letter-spacing:-.01em}
+  .step-price{font-size:24px;font-weight:900;letter-spacing:-.02em;margin-bottom:10px}
+  .step-desc{font-size:13px;color:#94a3b8;line-height:1.5;margin-bottom:12px}
+  .step-bullets{list-style:none;padding:0}
+  .step-bullets li{font-size:12px;color:#cbd5e1;padding:3px 0;
+    display:flex;align-items:flex-start;gap:6px}
+  .step-bullets li::before{content:"";width:5px;height:5px;border-radius:50%;
+    background:var(--accent);margin-top:6px;flex-shrink:0}
+  /* tier colors */
+  .t-entry .step-dot{background:rgba(16,185,129,.12);border-color:var(--ok);color:var(--ok)}
+  .t-entry .step-tag{background:rgba(16,185,129,.1);color:var(--ok);border:1px solid rgba(16,185,129,.25)}
+  .t-entry .step-price{color:var(--ok)}
+  .t-bump .step-dot{background:rgba(234,179,8,.1);border-color:var(--gold);color:var(--gold)}
+  .t-bump .step-tag{background:rgba(234,179,8,.08);color:var(--gold);border:1px solid rgba(234,179,8,.2)}
+  .t-bump .step-price{color:var(--gold)}
+  .t-live .step-dot{background:rgba(37,99,235,.15);border-color:var(--accent);color:var(--accent2)}
+  .t-live .step-tag{background:rgba(37,99,235,.1);color:var(--accent2);border:1px solid rgba(37,99,235,.3)}
+  .t-live .step-price{color:var(--accent2)}
+  .t-diag .step-dot{background:rgba(168,85,247,.12);border-color:#a855f7;color:#c084fc}
+  .t-diag .step-tag{background:rgba(168,85,247,.08);color:#c084fc;border:1px solid rgba(168,85,247,.25)}
+  .t-diag .step-price{color:#c084fc}
+  .t-group .step-dot{background:rgba(249,115,22,.1);border-color:#f97316;color:#fb923c}
+  .t-group .step-tag{background:rgba(249,115,22,.07);color:#fb923c;border:1px solid rgba(249,115,22,.2)}
+  .t-group .step-price{color:#fb923c}
+  .t-top .step-dot{background:rgba(239,68,68,.1);border-color:#ef4444;color:#f87171}
+  .t-top .step-tag{background:rgba(239,68,68,.08);color:#f87171;border:1px solid rgba(239,68,68,.2)}
+  .t-top .step-price{color:#f87171}
+  /* PILLARS */
+  .pillars{padding:60px 0;background:var(--card);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .pillars-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:36px}
+  @media(max-width:600px){.pillars-grid{grid-template-columns:1fr}}
+  .pillar{background:var(--card2);border:1px solid var(--line);border-radius:16px;padding:24px;text-align:center}
+  .pillar-icon{font-size:32px;margin-bottom:12px;display:block}
+  .pillar h3{font-size:18px;font-weight:800;margin-bottom:8px}
+  .pillar p{font-size:13px;color:var(--mut);line-height:1.5}
+  /* FUNIL */
+  .funil{padding:64px 0}
+  .funil-row{display:flex;gap:8px;align-items:center;flex-wrap:wrap;justify-content:center;margin-top:36px}
+  .funil-box{
+    background:var(--card);border:1px solid var(--line);border-radius:12px;
+    padding:14px 18px;text-align:center;min-width:130px;
+  }
+  .funil-box .fb-label{font-size:10px;color:var(--mut);text-transform:uppercase;
+    letter-spacing:.08em;margin-bottom:4px}
+  .funil-box .fb-name{font-size:13px;font-weight:700;line-height:1.2}
+  .funil-box .fb-price{font-size:11px;color:var(--accent2);margin-top:2px}
+  .funil-arrow{color:var(--mut);font-size:20px;flex-shrink:0}
+  .funil-note{font-size:12px;color:var(--mut);text-align:center;margin-top:28px;
+    background:var(--card);border:1px solid var(--line);border-radius:10px;
+    padding:12px 18px;max-width:680px;margin-inline:auto}
+  /* FOOTER */
+  footer{text-align:center;padding:48px 24px;color:var(--mut);font-size:13px;
+    border-top:1px solid var(--line)}
+  footer strong{color:var(--txt)}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <p class="hero-label">Esteira de Produtos &amp; Infoprodutos</p>
+  <h1>Gabriel Honrar</h1>
+  <p>Libertacao do vicio em jogos, apostas e bet. Do primeiro contato ate a mentoria individual.</p>
+  <div class="hero-badges">
+    <div class="badge">6 produtos estruturados</div>
+    <div class="badge">Funil multi-entrada</div>
+    <div class="badge">R$47 a R$5.789</div>
+    <div class="badge">Psicanálise + Neurociencia</div>
+  </div>
+</div>
+
+<!-- HISTORIA -->
+<div class="story wrap">
+  <div class="story-grid">
+    <div>
+      <div class="story-stat">
+        <div class="stat-num">R$ 1,3 mi</div>
+        <div class="stat-label">perdidos pelo Gabriel no vicio<br>antes de encontrar o caminho</div>
+      </div>
+    </div>
+    <div class="story-text">
+      <h2>Teoria e pratica de quem viveu na pele</h2>
+      <p>Gabriel Honrar perdeu mais de um milhao de reais entre dividas, imoveis e despesas causadas pelo vicio em apostas. Foi nesse processo de reconstrucao que desenvolveu o metodo das <strong>3 camadas (material, mental e espiritual)</strong> e os 3 pilares de retomada.</p>
+      <p>Hoje psicanalista formado e com formacao em neurociencia comportamental, ele transforma essa vivencia em acompanhamento real para quem quer sair do vicio. Nao e teoria. E o caminho que ele proprio percorreu.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ESCADA -->
+<div class="sec-title wrap">
+  <h2>A Escada de Valor</h2>
+  <p>Cada produto serve um estagio do aluno, do primeiro contato ao acompanhamento profundo. Ninguem e descartado.</p>
+</div>
+
+<div class="ladder wrap">
+  <div class="ladder-line"></div>
+
+  <!-- Degrau 0: Curso -->
+  <div class="step t-entry">
+    <div class="step-left side-left">
+      <div class="step-card">
+        <span class="step-tag">Degrau 1 &middot; Entrada</span>
+        <div class="step-name">Curso "O Primeiro Passo"</div>
+        <div class="step-price">R$ 47,89</div>
+        <div class="step-desc">Curso gravado, perpetuo. 5 aulas curtas (6-10 min cada) + exercicio por aula. Disponivel a qualquer hora.</div>
+        <ul class="step-bullets">
+          <li>5 aulas sobre o mecanismo do vicio</li>
+          <li>Desafio pratico na Aula 4 (pausa de 10 min)</li>
+          <li>Ligacao-surpresa anti-abandono</li>
+          <li>Formulario na Aula 5 que abre a porta da sessao</li>
+        </ul>
+      </div>
+    </div>
+    <div class="step-dot">1</div>
+    <div class="step-right">
+      <div class="step-card" style="visibility:hidden;pointer-events:none"></div>
+    </div>
+  </div>
+
+  <!-- Order bump: Workbook -->
+  <div class="step t-bump">
+    <div class="step-left side-left">
+      <div class="step-card" style="visibility:hidden;pointer-events:none"></div>
+    </div>
+    <div class="step-dot">+</div>
+    <div class="step-right">
+      <div class="step-card">
+        <span class="step-tag">Order Bump</span>
+        <div class="step-name">Workbook "Rotina de Lanus"</div>
+        <div class="step-price">R$ 50-60</div>
+        <div class="step-desc">Vendido como order bump no checkout do curso. Aumenta o ticket medio sem atrito. Exercicios complementares para a rotina de retomada.</div>
+        <ul class="step-bullets">
+          <li>Complementa o Degrau 1</li>
+          <li>Disponivel avulso tambem</li>
+          <li>Foco em rotina diaria de recuperacao</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Degrau 2: A Ultima Aposta - Aula ao Vivo -->
+  <div class="step t-live">
+    <div class="step-left side-left">
+      <div class="step-card">
+        <span class="step-tag">Degrau 2 &middot; Evento ao vivo</span>
+        <div class="step-name">A Última Aposta &mdash; Aula ao Vivo</div>
+        <div class="step-price">R$ 162,10</div>
+        <div class="step-desc">Evento ao vivo mensal. 3 horas com Gabriel. O menor degrau de entrada para quem quer uma experiencia ao vivo com interacao real.</div>
+        <ul class="step-bullets">
+          <li>3 horas ao vivo (1x por mes)</li>
+          <li>Metodo de identificar e soltar traumas</li>
+          <li>Bloco de perguntas ao vivo</li>
+          <li>Mapa dos proximos 6 meses (3 pilares)</li>
+          <li>10% do salario minimo de investimento</li>
+        </ul>
+      </div>
+    </div>
+    <div class="step-dot">2</div>
+    <div class="step-right">
+      <div class="step-card" style="visibility:hidden;pointer-events:none"></div>
+    </div>
+  </div>
+
+  <!-- LINHA divisoria -->
+  <div style="text-align:center;position:relative;margin:8px 0 28px;z-index:1">
+    <span style="background:var(--card2);border:1px solid var(--line);border-radius:20px;
+      font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+      color:var(--mut);padding:6px 18px;display:inline-block">
+      linha de qualificacao &middot; tem disposicao e capacidade de ir fundo?
+    </span>
+  </div>
+
+  <!-- Degrau 2: Sessao -->
+  <div class="step t-diag">
+    <div class="step-left side-left">
+      <div class="step-card" style="visibility:hidden;pointer-events:none"></div>
+    </div>
+    <div class="step-dot">3</div>
+    <div class="step-right">
+      <div class="step-card">
+        <span class="step-tag">Degrau 3 &middot; Nucleo</span>
+        <div class="step-name">Sessao de Diagnostico</div>
+        <div class="step-price">R$ 517,98</div>
+        <div class="step-desc">A oferta mae do funil. Sessao individual de ~2h com Gabriel para diagnosticar as 3 camadas do vicio e abrir a porta da mentoria.</div>
+        <ul class="step-bullets">
+          <li>~2h individual com Gabriel</li>
+          <li>Diagnostico das 3 camadas</li>
+          <li>Mapeamento da historia e traumas</li>
+          <li>Porta de entrada para a mentoria</li>
+          <li>Pix CNPJ Sabadini (C6) ou cartao</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Degrau 3: Mentoria grupo -->
+  <div class="step t-group">
+    <div class="step-left side-left">
+      <div class="step-card">
+        <span class="step-tag">Degrau 4 &middot; Mentoria Grupo</span>
+        <div class="step-name">Mentoria em Grupo</div>
+        <div class="step-price">R$ 3.000</div>
+        <div class="step-desc">Mentoria em grupo fechado (ate 12 pessoas) por 6 meses. Acompanhamento das 3 camadas com tarefas diarias e encontros regulares.</div>
+        <ul class="step-bullets">
+          <li>Ate 12 participantes</li>
+          <li>6 meses de acompanhamento</li>
+          <li>Tarefas diarias nos 3 pilares</li>
+          <li>Ofertada dentro da sessao de diagnostico</li>
+        </ul>
+      </div>
+    </div>
+    <div class="step-dot">4</div>
+    <div class="step-right">
+      <div class="step-card" style="visibility:hidden;pointer-events:none"></div>
+    </div>
+  </div>
+
+  <!-- Degrau 4: Mentoria individual -->
+  <div class="step t-top">
+    <div class="step-left side-left">
+      <div class="step-card" style="visibility:hidden;pointer-events:none"></div>
+    </div>
+    <div class="step-dot">5</div>
+    <div class="step-right">
+      <div class="step-card">
+        <span class="step-tag">Degrau 5 &middot; Topo / 1:1</span>
+        <div class="step-name">Mentoria Individual</div>
+        <div class="step-price">R$ 5.789</div>
+        <div class="step-desc">Acompanhamento 1:1 por 6 meses. O produto de maior profundidade e personalizacao da esteira. So ofertado apos a sessao de diagnostico.</div>
+        <ul class="step-bullets">
+          <li>Individual, 100% personalizado</li>
+          <li>6 meses de acompanhamento proximo</li>
+          <li>Reconstrucao das 3 camadas na raiz</li>
+          <li>Acesso direto ao Gabriel</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /ladder -->
+
+<!-- 3 PILARES -->
+<div class="pillars">
+  <div class="wrap">
+    <div class="sec-title" style="padding-top:0">
+      <h2>Os 3 Pilares do Metodo</h2>
+      <p>Base de todos os produtos. A libertacao trata as 3 camadas ao mesmo tempo.</p>
+    </div>
+    <div class="pillars-grid">
+      <div class="pillar">
+        <span class="pillar-icon">&#127774;</span>
+        <h3>Fisico</h3>
+        <p>Rotina, corpo, sono, alimentacao. A base material que sustenta a retomada. Sem o fisico estruturado, o mental e o espiritual nao se sustentam.</p>
+      </div>
+      <div class="pillar">
+        <span class="pillar-icon">&#129504;</span>
+        <h3>Mental</h3>
+        <p>Os traumas presos no cerebro que empurram pro vicio. Identificar, dar a sentenca e soltar cada um. Voce e o juiz da sua propria mente.</p>
+      </div>
+      <div class="pillar">
+        <span class="pillar-icon">&#10024;</span>
+        <h3>Espiritual</h3>
+        <p>Proposito, gratidao, fe e conexao com algo maior. O vazio que o jogo fingia preencher. Reconstruir o sentido de vida que sustenta a mudanca.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FUNIL MULTI-ENTRADA -->
+<div class="funil">
+  <div class="wrap">
+    <div class="sec-title" style="padding-top:0">
+      <h2>Funil Multi-Entrada</h2>
+      <p>Duas portas de entrada. Ninguem e descartado. Cada produto conduz ao proximo.</p>
+    </div>
+    <div class="funil-row">
+      <div class="funil-box" style="border-color:rgba(37,99,235,.3)">
+        <div class="fb-label">Trafego frio</div>
+        <div class="fb-name">Anuncio Meta</div>
+        <div class="fb-price">Arroba / Feed</div>
+      </div>
+      <div class="funil-arrow">&#8594;</div>
+      <div class="funil-box" style="border-color:rgba(37,99,235,.3)">
+        <div class="fb-label">Qualificacao</div>
+        <div class="fb-name">Typebot</div>
+        <div class="fb-price">Form automatico</div>
+      </div>
+      <div class="funil-arrow">&#8594;</div>
+      <div>
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <div class="funil-box" style="border-color:rgba(168,85,247,.3)">
+            <div class="fb-label">Oferta principal</div>
+            <div class="fb-name">Sessao de Diagnostico</div>
+            <div class="fb-price">R$ 517,98</div>
+          </div>
+          <div style="text-align:center;font-size:11px;color:var(--mut)">ou</div>
+          <div class="funil-box" style="border-color:rgba(37,99,235,.3)">
+            <div class="fb-label">Evento ao vivo</div>
+            <div class="fb-name">A Última Aposta</div>
+            <div class="fb-price">R$ 162,10</div>
+          </div>
+        </div>
+      </div>
+      <div class="funil-arrow">&#8594;</div>
+      <div>
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <div class="funil-box" style="border-color:rgba(249,115,22,.3)">
+            <div class="fb-label">High ticket</div>
+            <div class="fb-name">Mentoria Grupo</div>
+            <div class="fb-price">R$ 3.000</div>
+          </div>
+          <div style="text-align:center;font-size:11px;color:var(--mut)">ou</div>
+          <div class="funil-box" style="border-color:rgba(239,68,68,.3)">
+            <div class="fb-label">Topo</div>
+            <div class="fb-name">Mentoria 1:1</div>
+            <div class="fb-price">R$ 5.789</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="funil-note">
+      Quem nao fecha a sessao apos follow-ups recebe oferta do <strong>Curso R$47,89</strong> (fallback). Quem compra o curso ou o aulao recebe re-oferta da sessao. A mentoria e ofertada sempre dentro da sessao, nunca diretamente pela IA.
+    </div>
+  </div>
+</div>
+
+<!-- ESTRATEGIAS -->
+<div style="padding:64px 0;background:var(--bg);border-top:1px solid var(--line)">
+  <div class="wrap">
+    <div class="sec-title" style="padding-top:0">
+      <h2>Estratégias de Receita</h2>
+      <p>Cada produto conecta ao proximo por uma estrategia deliberada. Ninguem e descartado, toda interacao tem um proximo passo.</p>
+    </div>
+
+    <!-- UPSELL -->
+    <h3 style="font-size:13px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ok);margin:32px 0 14px">Upsell &mdash; sobe quem esta pronto</h3>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px">
+
+      <div class="step-card" style="max-width:none;border-left:3px solid var(--ok)">
+        <div style="font-size:11px;color:var(--ok);font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px">Upsell 1</div>
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
+          <div style="background:rgba(37,99,235,.12);border:1px solid rgba(37,99,235,.3);border-radius:8px;padding:6px 10px;font-size:12px;font-weight:700">A Última Aposta<br><span style="color:var(--accent2)">R$ 162,10</span></div>
+          <span style="color:var(--mut);font-size:18px">&#8594;</span>
+          <div style="background:rgba(168,85,247,.1);border:1px solid rgba(168,85,247,.3);border-radius:8px;padding:6px 10px;font-size:12px;font-weight:700">Sessao de Solucao<br><span style="color:#c084fc">R$ 517,98</span></div>
+        </div>
+        <p style="font-size:12px;color:var(--mut);margin:0">No encerramento da aula ao vivo, Gabriel convida quem quer ir na raiz a marcar a sessao individual. Lead ja aquecido e ativado.</p>
+      </div>
+
+      <div class="step-card" style="max-width:none;border-left:3px solid var(--ok)">
+        <div style="font-size:11px;color:var(--ok);font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px">Upsell 2</div>
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
+          <div style="background:rgba(16,185,129,.1);border:1px solid rgba(16,185,129,.3);border-radius:8px;padding:6px 10px;font-size:12px;font-weight:700">Curso O Primeiro Passo<br><span style="color:var(--ok)">R$ 47,89</span></div>
+          <span style="color:var(--mut);font-size:18px">&#8594;</span>
+          <div style="background:rgba(168,85,247,.1);border:1px solid rgba(168,85,247,.3);border-radius:8px;padding:6px 10px;font-size:12px;font-weight:700">Sessao de Solucao<br><span style="color:#c084fc">R$ 517,98</span></div>
+        </div>
+        <p style="font-size:12px;color:var(--mut);margin:0">A Aula 5 do curso entrega o formulario de aprofundamento e faz a ponte explicita pra sessao. Check-ins pos-curso reabrem a oferta ao longo do tempo.</p>
+      </div>
+
+      <div class="step-card" style="max-width:none;border-left:3px solid var(--ok)">
+        <div style="font-size:11px;color:var(--ok);font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px">Upsell 3</div>
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
+          <div style="background:rgba(168,85,247,.1);border:1px solid rgba(168,85,247,.3);border-radius:8px;padding:6px 10px;font-size:12px;font-weight:700">Sessao de Solucao<br><span style="color:#c084fc">R$ 517,98</span></div>
+          <span style="color:var(--mut);font-size:18px">&#8594;</span>
+          <div style="background:rgba(249,115,22,.08);border:1px solid rgba(249,115,22,.3);border-radius:8px;padding:6px 10px;font-size:12px;font-weight:700">Mentoria Grupo ou 1:1<br><span style="color:#fb923c">R$ 3.000 / R$ 5.789</span></div>
+        </div>
+        <p style="font-size:12px;color:var(--mut);margin:0">A mentoria NUNCA e ofertada pela IA nem diretamente pelo anuncio. So e ofertada dentro da sessao, pelo Gabriel, apos diagnostico individual.</p>
+      </div>
+    </div>
+
+    <!-- DOWNSELL -->
+    <h3 style="font-size:13px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#f87171;margin:36px 0 14px">Downsell &mdash; nao perde o lead, desce o degrau</h3>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px">
+
+      <div class="step-card" style="max-width:none;border-left:3px solid #ef4444">
+        <div style="font-size:11px;color:#f87171;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px">Downsell 1</div>
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
+          <div style="background:rgba(168,85,247,.1);border:1px solid rgba(168,85,247,.3);border-radius:8px;padding:6px 10px;font-size:12px;font-weight:700">Sessao nao fechada<br><span style="color:#c084fc">apos follow-ups</span></div>
+          <span style="color:var(--mut);font-size:18px">&#8594;</span>
+          <div style="background:rgba(16,185,129,.1);border:1px solid rgba(16,185,129,.3);border-radius:8px;padding:6px 10px;font-size:12px;font-weight:700">Curso O Primeiro Passo<br><span style="color:var(--ok)">R$ 47,89</span></div>
+        </div>
+        <p style="font-size:12px;color:var(--mut);margin:0">Quando a objecao da sessao nao e vencida apos a cadencia de follow-up (D+1/D+3/D+7), o agente oferece o curso como alternativa. Nao perde o lead: manteem na esteira com ticket menor e aquece pra re-oferta futura.</p>
+      </div>
+
+    </div>
+
+    <!-- ORDER BUMP / CROSS-SELL -->
+    <h3 style="font-size:13px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin:36px 0 14px">Order Bump / Cross-sell &mdash; aumenta ticket sem atrito</h3>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px">
+
+      <div class="step-card" style="max-width:none;border-left:3px solid var(--gold)">
+        <div style="font-size:11px;color:var(--gold);font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px">Order Bump</div>
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
+          <div style="background:rgba(16,185,129,.1);border:1px solid rgba(16,185,129,.3);border-radius:8px;padding:6px 10px;font-size:12px;font-weight:700">Checkout do Curso<br><span style="color:var(--ok)">R$ 47,89</span></div>
+          <span style="color:var(--mut);font-size:18px">+</span>
+          <div style="background:rgba(234,179,8,.08);border:1px solid rgba(234,179,8,.25);border-radius:8px;padding:6px 10px;font-size:12px;font-weight:700">Workbook Rotina de Lanus<br><span style="color:var(--gold)">R$ 50-60</span></div>
+        </div>
+        <p style="font-size:12px;color:var(--mut);margin:0">Ofertado com desconto no proprio checkout do curso. Um clique, sem nova decisao de compra. Aumenta o ticket medio do curso sem adicionar atrito.</p>
+      </div>
+
+    </div>
+
+    <!-- RE-OFERTA -->
+    <h3 style="font-size:13px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--accent2);margin:36px 0 14px">Re-oferta &mdash; lead aquecido vale mais</h3>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px">
+
+      <div class="step-card" style="max-width:none;border-left:3px solid var(--accent)">
+        <div style="font-size:11px;color:var(--accent2);font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px">Re-oferta Sessao</div>
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
+          <div style="background:rgba(16,185,129,.1);border:1px solid rgba(16,185,129,.3);border-radius:8px;padding:6px 10px;font-size:12px;font-weight:700">Comprou Curso ou Aulao<br><span style="color:var(--ok)">lead aquecido</span></div>
+          <span style="color:var(--mut);font-size:18px">&#8594;</span>
+          <div style="background:rgba(168,85,247,.1);border:1px solid rgba(168,85,247,.3);border-radius:8px;padding:6px 10px;font-size:12px;font-weight:700">Sessao de Solucao<br><span style="color:#c084fc">R$ 517,98</span></div>
+        </div>
+        <p style="font-size:12px;color:var(--mut);margin:0">Quem comprou o curso ou o aulao e recusou a sessao antes agora recebe re-oferta com contexto diferente: ja viveu o produto, ja confia no Gabriel, objecao de dinheiro ou medo foi reduzida pela experiencia.</p>
+      </div>
+
+      <div class="step-card" style="max-width:none;border-left:3px solid var(--accent)">
+        <div style="font-size:11px;color:var(--accent2);font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px">Grupo Gratuito como Canal</div>
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
+          <div style="background:rgba(37,99,235,.1);border:1px solid rgba(37,99,235,.3);border-radius:8px;padding:6px 10px;font-size:12px;font-weight:700">Grupo de Apoio<br><span style="color:var(--accent2)">Gratuito (600+)</span></div>
+          <span style="color:var(--mut);font-size:18px">&#8594;</span>
+          <div style="background:rgba(16,185,129,.1);border:1px solid rgba(16,185,129,.3);border-radius:8px;padding:6px 10px;font-size:12px;font-weight:700">Qualquer produto pago<br><span style="color:var(--ok)">oferta continua</span></div>
+        </div>
+        <p style="font-size:12px;color:var(--mut);margin:0">O grupo nao e "so de graca pra sempre". Dentro dele, Gabriel oferta os produtos com o enquadramento de que investir faz parte da cura. Depoimentos do grupo viram prova social dos anuncios (loop fechado).</p>
+      </div>
+
+    </div>
+
+    <!-- REGRAS -->
+    <div style="background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px;margin-top:32px">
+      <h4 style="font-size:13px;font-weight:700;color:var(--accent2);text-transform:uppercase;letter-spacing:.08em;margin-bottom:14px">Regras do ciclo (confirmadas)</h4>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px">
+        <div style="font-size:12px;color:#94a3b8;padding:10px;background:var(--card2);border-radius:8px"><b style="color:var(--txt);display:block;margin-bottom:4px">Mentoria: so dentro da sessao</b>Nunca ofertada por anuncio ou IA. So o Gabriel oferta, ao vivo, apos diagnostico.</div>
+        <div style="font-size:12px;color:#94a3b8;padding:10px;background:var(--card2);border-radius:8px"><b style="color:var(--txt);display:block;margin-bottom:4px">Objecao nao e "nao"</b>Cada objecao (sem dinheiro, medo, sem pressa) tem caminho hipotese. O agente nunca desiste na primeira negativa.</div>
+        <div style="font-size:12px;color:#94a3b8;padding:10px;background:var(--card2);border-radius:8px"><b style="color:var(--txt);display:block;margin-bottom:4px">Investir e parte da cura</b>O principio do caminhao de arroz. Quem paga se compromete. Usado como argumento, nao como pressao.</div>
+        <div style="font-size:12px;color:#94a3b8;padding:10px;background:var(--card2);border-radius:8px"><b style="color:var(--txt);display:block;margin-bottom:4px">Ninguem e descartado</b>Quem nao pode pagar e acolhido no grupo gratuito e convidado a investir quando puder. Loop de impacto vira prova social.</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <strong>Gabriel Honrar</strong> &middot; Libertacao do vicio em jogos e apostas<br>
+  Psicanalista e neurociencia comportamental &middot; Pix CNPJ 63.223.959/0001-06 (Sabadini Instituto de Ensino Digital, C6 Bank)<br>
+  <span style="margin-top:8px;display:block;font-size:11px">Documento interno de projeto &middot; Gabriel Honrar + ODISSEU &middot; 2026</span>
+</footer>
+
+</body>
+</html>
