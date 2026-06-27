@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A Última Aposta - Aula ao Vivo | Criativos Gabriel Honrar</title>
+<style>
+  :root{
+    --bg:#0b0f17; --card:#141a24; --card2:#1b2330; --line:#26303f;
+    --txt:#e8edf4; --mut:#93a1b5; --accent:#2563EB; --accent2:#3b82f6;
+    --ok:#10b981; --warn:#f59e0b;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--txt);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;
+    line-height:1.5;padding:0 0 80px}
+  header{position:sticky;top:0;z-index:10;background:rgba(11,15,23,.92);
+    backdrop-filter:blur(8px);border-bottom:1px solid var(--line);padding:18px 24px}
+  header h1{margin:0;font-size:20px}
+  header p{margin:4px 0 0;color:var(--mut);font-size:13px}
+  .wrap{max-width:980px;margin:0 auto;padding:0 24px}
+  nav{display:flex;gap:10px;margin-top:12px;flex-wrap:wrap}
+  nav a{font-size:13px;color:var(--accent2);text-decoration:none;
+    border:1px solid var(--line);padding:5px 12px;border-radius:20px}
+  nav a:hover{background:var(--card2)}
+  h2.sec{font-size:16px;text-transform:uppercase;letter-spacing:.08em;
+    color:var(--mut);margin:42px 0 8px;border-bottom:1px solid var(--line);padding-bottom:8px}
+  .sub{color:var(--mut);font-size:13px;margin:0 0 18px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;
+    padding:18px;margin:14px 0}
+  .card h3{margin:0 0 2px;font-size:16px}
+  .tag{display:inline-block;font-size:11px;padding:2px 9px;border-radius:20px;
+    margin-left:8px;vertical-align:middle;font-weight:600}
+  .tag.video{background:#1e293b;color:#7dd3fc;border:1px solid #334155}
+  .tag.img{background:#1f2937;color:#fcd34d;border:1px solid #3f3f46}
+  .tag.style{background:#172554;color:#93c5fd;border:1px solid #1e3a8a}
+  .ang{color:var(--mut);font-size:12px;margin:0 0 12px}
+  .tp-label{font-size:11px;letter-spacing:.1em;text-transform:uppercase;
+    color:var(--mut);margin:0 0 6px;display:flex;justify-content:space-between;align-items:center}
+  textarea.tp{width:100%;min-height:150px;background:#0a0e15;color:#f1f5f9;
+    border:1px solid var(--line);border-radius:10px;padding:14px;
+    font-size:17px;line-height:1.55;resize:vertical;font-family:Georgia,serif}
+  .row{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+  button{cursor:pointer;font-size:13px;font-weight:600;border-radius:9px;
+    padding:9px 16px;border:1px solid var(--line);background:var(--card2);color:var(--txt)}
+  button:hover{border-color:var(--accent)}
+  button.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+  button.primary:hover{background:var(--accent2)}
+  button.copied{background:var(--ok)!important;border-color:var(--ok)!important;color:#fff}
+  .specs{display:none;margin-top:14px;background:var(--card2);
+    border:1px solid var(--line);border-left:3px solid var(--accent);
+    border-radius:10px;padding:14px}
+  .specs.open{display:block}
+  .specs h4{margin:0 0 8px;font-size:13px;color:var(--accent2);
+    text-transform:uppercase;letter-spacing:.06em}
+  .specs .hl{background:#0a0e15;border:1px dashed var(--accent);border-radius:8px;
+    padding:10px 12px;font-size:15px;font-weight:700;margin:0 0 12px;color:#fff}
+  .specs ul{margin:0;padding-left:18px}
+  .specs li{margin:3px 0;font-size:13px;color:#cbd6e4}
+  .specs li b{color:#fff}
+  .hl-fix{position:relative;display:inline-block;max-width:100%;
+    background:linear-gradient(180deg,#1e3a8a,#172554);
+    border:1px solid var(--accent);border-radius:12px;
+    padding:10px 16px;margin:2px 0 14px;
+    font-size:19px;font-weight:900;line-height:1.2;letter-spacing:.01em;
+    text-transform:uppercase;color:#fff;
+    box-shadow:0 2px 14px rgba(37,99,235,.35)}
+  .hl-fix::before{content:"Headline fixa na tela";display:block;
+    font-size:9px;font-weight:700;letter-spacing:.12em;color:#93c5fd;
+    margin-bottom:3px;text-transform:uppercase}
+  .hl-fix::after{content:"";position:absolute;left:22px;bottom:-7px;
+    width:13px;height:13px;background:#172554;border-right:1px solid var(--accent);
+    border-bottom:1px solid var(--accent);transform:rotate(45deg)}
+  .beat{margin:7px 0;font-size:14px}
+  .beat b{color:var(--accent2);font-size:11px;text-transform:uppercase;
+    letter-spacing:.05em;display:block;margin-bottom:1px}
+  .copyblock{background:#0a0e15;border:1px solid var(--line);border-radius:10px;
+    padding:12px 14px;font-size:14px;margin:6px 0}
+  table{width:100%;border-collapse:collapse;font-size:13px;margin-top:8px}
+  th,td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+  th{background:var(--card2);color:var(--mut);font-weight:600}
+  .pill{font-size:11px;color:var(--mut);background:#0a0e15;border:1px solid var(--line);
+    padding:2px 8px;border-radius:20px;margin-left:6px}
+  .note{font-size:12px;color:var(--mut);background:#13110a;border:1px solid #3f3413;
+    border-radius:10px;padding:12px 14px;margin:16px 0}
+  .legend{background:var(--card2);border:1px solid var(--line);border-radius:12px;padding:16px;margin:0 0 22px}
+  .legend h4{margin:0 0 8px;font-size:13px;color:var(--accent2);text-transform:uppercase;letter-spacing:.06em}
+  .legend p{margin:0 0 10px;font-size:13px;color:var(--mut)}
+  .legend table{margin:0}
+  .legend td:first-child{white-space:nowrap}
+  .tier{display:inline-block;font-size:10px;font-weight:800;padding:1px 7px;border-radius:5px;
+    margin-right:6px;vertical-align:middle;letter-spacing:.03em}
+  .tier.t1{background:#2563EB;color:#fff}
+  .tier.t2{background:#1e3a8a;color:#cfe0ff}
+  .tier.t3{background:#26303f;color:#9fb2cb}
+  .tier.cta{background:#10b981;color:#04231a}
+  .tier.hl{background:#f59e0b;color:#231a04}
+  .imgrow{display:flex;gap:18px;align-items:flex-start;flex-wrap:wrap}
+  .mockwrap{flex:0 0 210px}
+  .mockcap{font-size:10px;color:var(--mut);text-align:center;margin:6px 0 0;letter-spacing:.04em}
+  .mock{width:210px;aspect-ratio:9/16;border-radius:12px;overflow:hidden;position:relative;
+    background:linear-gradient(160deg,#1a2436 0%,#0a0e15 62%,#070a10 100%);
+    border:1px solid var(--line);display:flex;flex-direction:column;padding:14px 12px;gap:8px}
+  .mock .photo-tag{position:absolute;inset:0;display:flex;align-items:flex-end;justify-content:center;
+    padding-bottom:64px;color:#243043;font-size:10px;letter-spacing:.12em;text-transform:uppercase;pointer-events:none}
+  .m-badge{align-self:flex-start;background:var(--accent);color:#fff;font-weight:800;
+    font-size:14px;line-height:1.1;padding:6px 10px;border-radius:16px;z-index:1;text-transform:uppercase}
+  .m-h1{font-size:22px;line-height:.98;font-weight:900;letter-spacing:-.01em;color:#fff;
+    text-transform:uppercase;z-index:1}
+  .m-h1.outline{color:transparent;-webkit-text-stroke:1px #fff}
+  .m-sub{font-size:13px;line-height:1.15;font-weight:700;color:#dbe5f2;z-index:1}
+  .m-body{font-size:11px;line-height:1.25;color:#c3cedd;background:rgba(7,11,18,.66);
+    border-radius:7px;padding:7px 8px;z-index:1}
+  .m-body b{color:#fff}
+  .m-hl{font-size:14px;line-height:1.08;font-weight:800;color:var(--accent2);text-transform:uppercase;z-index:1}
+  .m-auth{font-size:10px;line-height:1.2;color:#8aa0bd;font-style:italic;z-index:1}
+  .m-cta-pill{align-self:flex-start;margin-top:auto;background:#fff;color:#0b0f17;
+    font-weight:800;font-size:11px;padding:6px 11px;border-radius:16px;z-index:1;text-transform:uppercase}
+  .m-cta-bar{margin:auto -12px -14px;background:var(--accent);color:#fff;
+    font-weight:800;font-size:11px;padding:9px 12px;text-align:center;z-index:1;text-transform:uppercase}
+  .pushdown{margin-top:auto}
+  .beatcol{flex:1 1 320px;min-width:260px}
+  .preco-badge{display:inline-block;background:#10b981;color:#04231a;font-weight:800;
+    font-size:13px;padding:4px 12px;border-radius:20px;margin-bottom:14px}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <h1>A Última Aposta &mdash; Aula ao Vivo</h1>
+    <p>Libertacao do vicio em jogos / apostas / bet / cassino &middot; R$162,10 &middot; 14 criativos (7 video + 7 imagem) + copy Meta Ads</p>
+    <nav>
+      <a href="#video">Video (7)</a>
+      <a href="#imagem">Imagem (7)</a>
+      <a href="#meta">Copy Meta Ads</a>
+      <a href="#notas">Notas</a>
+    </nav>
+  </div>
+</header>
+
+<div class="wrap">
+
+<!-- ============ VIDEO ============ -->
+<h2 class="sec" id="video">Video &mdash; 7 criativos (talking-head)</h2>
+<p class="sub">Produto: <b>A Última Aposta &mdash; Aula ao Vivo</b> &middot; R$162,10 &middot; 3h ao vivo mensalmente. CTA leva ao link de pagamento do aulao (Greenn, pendente). Padrão: bloco visivel e o <b>teleprompter bruto</b>. Hook nos primeiros 3s. Tom: fraterno, simples, experiencia real.</p>
+
+<!-- V1 -->
+<div class="card">
+  <h3>V1 <span class="tag video">VIDEO</span><span class="tag style">Hook presos da mente</span></h3>
+  <p class="ang">Angulo: trauma como prisioneiro / voce e o juiz &middot; estrutura Insight + Convite</p>
+  <div class="hl-fix">OS PRESOS DA SUA MENTE TE EMPURRAM PRO VICIO</div>
+  <div class="tp-label"><span>Teleprompter (bruto)</span><span class="count">~50s</span></div>
+  <textarea class="tp" readonly>Voce ja parou pra pensar que dentro do seu cerebro existem presos?
+
+Cada trauma que voce viveu, quando aconteceu, o seu cerebro jogou pra dentro da cadeia. Prendeu e trancou. Por causa do medo. Porque o medo manda voce se proteger.
+
+E esses presos nao morrem la dentro. Eles ficam. Empurrando voce pra apostar, pra beber, pra fugir. Porque o cerebro foge do que dói.
+
+O que eu te ensino no aulao e como identificar esses presos, dar a sentenca e soltar cada um.
+
+Voce nao e vitima da sua mente. Voce e o juiz dela.
+
+Sao 3 horas ao vivo comigo, uma vez por mes. Clica no link e entra.</textarea>
+  <div class="row">
+    <button class="primary" onclick="copyTP(this)">Copiar tudo</button>
+    <button onclick="toggleSpecs(this)">Specs de edicao + headline</button>
+  </div>
+  <div class="specs">
+    <h4>Headline nativa fixa (na tela)</h4>
+    <div class="hl">OS PRESOS DA SUA MENTE TE EMPURRAM PRO VICIO</div>
+    <h4>Edicao basica</h4>
+    <ul>
+      <li><b>Duracao:</b> ~50s &middot; <b>Proporcao:</b> 9:16 (1080x1920)</li>
+      <li><b>Enquadramento:</b> plano medio, camara altura dos olhos, tom reflexivo.</li>
+      <li><b>Hook 0-3s:</b> "Voce ja parou pra pensar que dentro do seu cerebro existem presos?" em close.</li>
+      <li><b>Legendas:</b> queimadas, palavra-a-palavra, font bold, destaque em azul #2563EB em "presos", "juiz", "sentenca".</li>
+      <li><b>Corte:</b> corte seco a cada frase. Zoom suave no "voce e o juiz dela".</li>
+      <li><b>Card final (3s):</b> fundo azul, "QUERO ENTRAR NO AULAO" + preco R$162,10 + seta pro botao.</li>
+      <li><b>Audio:</b> fala limpa, sem trilha no hook. Trilha suave (instrumental reflexivo) a partir do bloco 2.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- V2 -->
+<div class="card">
+  <h3>V2 <span class="tag video">VIDEO</span><span class="tag style">Desafio de coragem</span></h3>
+  <p class="ang">Angulo: provocacao (voce teve coragem de olhar?) &middot; estrutura Pergunta + Insight + CTA</p>
+  <div class="hl-fix">VOCE TEVE CORAGEM DE OLHAR DE VERDADE?</div>
+  <div class="tp-label"><span>Teleprompter (bruto)</span><span class="count">~45s</span></div>
+  <textarea class="tp" readonly>Deixa eu te fazer uma pergunta. Voce ja teve coragem de olhar de frente tudo que voce perdeu no vicio? Nao chutando, nao imaginando. Olhar de verdade.
+
+Quase ninguem tem. Porque o cerebro foge do que doi.
+
+Mas e exatamente ai que esta a chave. Cada coisa que voce perdeu, cada trauma, ta preso la dentro esperando voce dar uma sentenca.
+
+E so voce pode dar essa sentenca. Voce e o juiz.
+
+No aulao eu te mostro como fazer isso. Como escavar onde doi, pegar cada preso pelo nome e soltar.
+
+3 horas. Ao vivo comigo. Por 162 reais. Clica aqui.</textarea>
+  <div class="row">
+    <button class="primary" onclick="copyTP(this)">Copiar tudo</button>
+    <button onclick="toggleSpecs(this)">Specs de edicao + headline</button>
+  </div>
+  <div class="specs">
+    <h4>Headline nativa fixa (na tela)</h4>
+    <div class="hl">VOCE TEVE CORAGEM DE OLHAR DE VERDADE?</div>
+    <h4>Edicao basica</h4>
+    <ul>
+      <li><b>Duracao:</b> ~45s &middot; <b>Proporcao:</b> 9:16</li>
+      <li><b>Enquadramento:</b> plano medio. Tom firme mas acolhedor. Olhando direto pra camera.</li>
+      <li><b>Hook 0-3s:</b> "Voce ja teve coragem de olhar de frente tudo que voce perdeu?" pausa dramatica.</li>
+      <li><b>Legendas:</b> queimadas; destaque em "juiz", "escavar onde doi", "preso".</li>
+      <li><b>Corte:</b> seco. Leve zoom no "so voce pode dar essa sentenca".</li>
+      <li><b>Card final:</b> azul, "QUERO ENTRAR NO AULAO" + R$162,10.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- V3 -->
+<div class="card">
+  <h3>V3 <span class="tag video">VIDEO</span><span class="tag style">Prova / historia Gabriel</span></h3>
+  <p class="ang">Angulo: autoridade pela experiencia propria + numero real &middot; estrutura Crise-Virada-Metodo</p>
+  <div class="hl-fix">EU PERDI R$ 1.378.000. E ENCONTREI O CAMINHO.</div>
+  <div class="tp-label"><span>Teleprompter (bruto)</span><span class="count">~55s</span></div>
+  <textarea class="tp" readonly>Eu perdi um milhao trezentos e setenta e oito mil reais. Calculei tudo: as dividas, os imoveis que tive que vender, as despesas que o vicio me causou.
+
+Nao e um numero que eu peguei da internet. E o que eu vivi na minha propria pele.
+
+O que me tirou de la foi entender que o vicio nao estava no jogo. Estava nos traumas que eu nunca tive coragem de enfrentar.
+
+Me formei em psicanalise, estudei neurociencia comportamental, e hoje eu ensino o caminho que eu mesmo percorri.
+
+No aulao de 3 horas eu te mostro esse caminho. Voce investe 162 reais, que e 10% de um salario minimo. E sai com a estrutura dos proximos 6 meses nos 3 pilares: o fisico, o mental e o espiritual.
+
+Clica aqui e entra no proximo.</textarea>
+  <div class="row">
+    <button class="primary" onclick="copyTP(this)">Copiar tudo</button>
+    <button onclick="toggleSpecs(this)">Specs de edicao + headline</button>
+  </div>
+  <div class="specs">
+    <h4>Headline nativa fixa (na tela)</h4>
+    <div class="hl">EU PERDI R$ 1.378.000. E ENCONTREI O CAMINHO.</div>
+    <h4>Edicao basica</h4>
+    <ul>
+      <li><b>Duracao:</b> ~55s &middot; <b>Proporcao:</b> 9:16 (peca de autoridade, pode ir ate 60s)</li>
+      <li><b>Enquadramento:</b> plano medio fixo. Tom confessional no inicio, firme e esperancoso no final.</li>
+      <li><b>Hook 0-3s:</b> "Eu perdi um milhao trezentos e setenta e oito mil reais" direto, sem introducao.</li>
+      <li><b>Overlay:</b> ao falar o numero, subir texto "R$ 1.378.000,00" grande na tela (impacto visual).</li>
+      <li><b>Legendas:</b> queimadas; destaque em "psicanalise", "neurociencia", "3 pilares".</li>
+      <li><b>Card final:</b> azul, "QUERO ENTRAR NO AULAO" + R$162,10.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- V4 -->
+<div class="card">
+  <h3>V4 <span class="tag video">VIDEO</span><span class="tag style">Reframe de tempo</span></h3>
+  <p class="ang">Angulo: quanto tempo ja perdeu tentando sozinho vs 3 horas com metodo &middot; estrutura PAS + Oferta</p>
+  <div class="hl-fix">QUANTO TEMPO VOCE JA PERDEU TENTANDO PARAR?</div>
+  <div class="tp-label"><span>Teleprompter (bruto)</span><span class="count">~50s</span></div>
+  <textarea class="tp" readonly>Quanto tempo voce ja passou tentando parar sozinho? Um ano? Dois? Cinco?
+
+E nesse tempo, quanto voce ja perdeu?
+
+Em 3 horas de aulao comigo voce vai entender por que voce nao conseguiu, o que esta te prendendo de verdade, e o que voce precisa fazer nos proximos 6 meses nos 3 pilares: o fisico, o mental e o espiritual.
+
+Nao e video gravado que voce assiste e esquece. E ao vivo. Voce pode perguntar, eu te respondo na hora, e voce sai com um mapa real pra sua vida.
+
+Por 162 reais. Que e 10 por cento de um salario minimo.
+
+Se voce nao ta disposto a investir 10 por cento do que ganha na sua cura, talvez ainda nao decidiu sair de verdade. Mas se decidiu, clica aqui.</textarea>
+  <div class="row">
+    <button class="primary" onclick="copyTP(this)">Copiar tudo</button>
+    <button onclick="toggleSpecs(this)">Specs de edicao + headline</button>
+  </div>
+  <div class="specs">
+    <h4>Headline nativa fixa (na tela)</h4>
+    <div class="hl">QUANTO TEMPO VOCE JA PERDEU TENTANDO PARAR?</div>
+    <h4>Edicao basica</h4>
+    <ul>
+      <li><b>Duracao:</b> ~50s &middot; <b>Proporcao:</b> 9:16</li>
+      <li><b>Enquadramento:</b> plano medio, camara altura dos olhos. Tom crescente: reflexivo no inicio, firme no final.</li>
+      <li><b>Hook 0-3s:</b> "Quanto tempo voce ja passou tentando parar sozinho?" pausa longa apos a pergunta.</li>
+      <li><b>Legendas:</b> queimadas; destaque em "3 pilares", "ao vivo", "mapa real".</li>
+      <li><b>Card final:</b> azul, "QUERO ENTRAR NO AULAO" + R$162,10 + "10% do salario minimo".</li>
+    </ul>
+  </div>
+</div>
+
+<!-- V5 -->
+<div class="card">
+  <h3>V5 <span class="tag video">VIDEO</span><span class="tag style">Reframe de preco</span></h3>
+  <p class="ang">Angulo: 162 reais vs custo do vicio &middot; estrutura Pergunta de Dor + Oferta Simples</p>
+  <div class="hl-fix">QUAL E O PRECO DA SUA LIBERDADE?</div>
+  <div class="tp-label"><span>Teleprompter (bruto)</span><span class="count">~45s</span></div>
+  <textarea class="tp" readonly>Voce ja calculou quanto o vicio ja te custou?
+
+Dinheiro, familia, emprego, paz. Junta tudo. Esse e o preco que voce ja pagou sem receber nada em troca.
+
+Agora me diz: 162 reais. 3 horas ao vivo. Entender de onde vem tudo isso e o que fazer pra sair. Vale?
+
+Isso e 10 por cento de um salario minimo. E o menor investimento na sua libertacao.
+
+No aulao voce vai saber quais sao os presos que estao te empurrando pro vicio e como dar a sentenca pra soltar cada um.
+
+Se nao gostar, pede seu reembolso. Mas se ficar, voce vai entender o que nenhuma promessa de parar sozinho te ensinou.
+
+Clica no link.</textarea>
+  <div class="row">
+    <button class="primary" onclick="copyTP(this)">Copiar tudo</button>
+    <button onclick="toggleSpecs(this)">Specs de edicao + headline</button>
+  </div>
+  <div class="specs">
+    <h4>Headline nativa fixa (na tela)</h4>
+    <div class="hl">QUAL E O PRECO DA SUA LIBERDADE?</div>
+    <h4>Edicao basica</h4>
+    <ul>
+      <li><b>Duracao:</b> ~45s &middot; <b>Proporcao:</b> 9:16</li>
+      <li><b>Enquadramento:</b> plano medio. Tom calmo, quase de conversa. Sem urgencia artificial.</li>
+      <li><b>Hook 0-3s:</b> "Voce ja calculou quanto o vicio ja te custou?" voz baixa, reflexiva.</li>
+      <li><b>Legendas:</b> queimadas; destaque em "162 reais", "libertacao", "pede seu reembolso".</li>
+      <li><b>Card final:</b> azul, "QUERO ENTRAR" + R$162,10 + "garantia de satisfacao".</li>
+    </ul>
+  </div>
+</div>
+
+<!-- V6 -->
+<div class="card">
+  <h3>V6 <span class="tag video">VIDEO</span><span class="tag style">Escavar onde doi</span></h3>
+  <p class="ang">Angulo: coragem de enfrentar os traumas / o cerebro foge do que doi &middot; estrutura PAS empatico</p>
+  <div class="hl-fix">SEU CEREBRO FOGE DO QUE DOI. E POR ISSO VOCE NAO CONSEGUE PARAR.</div>
+  <div class="tp-label"><span>Teleprompter (bruto)</span><span class="count">~50s</span></div>
+  <textarea class="tp" readonly>O seu cerebro nao ta do seu lado nessa batalha. Ele foi criado pro medo, pra sobrevivencia. E o medo manda nao mexer no que doi.
+
+Por isso voce nunca teve coragem de olhar de frente seus traumas. Nao e fraqueza sua. E o seu cerebro funcionando do jeito que foi programado.
+
+O problema e que esses traumas ficam la, presos, empurrando voce pra apostar, pra escapar, pra fugir da dor.
+
+A cura comeca quando voce se torna o juiz disso. Quando voce escava onde doi, pega cada preso pelo nome e da a sentenca.
+
+Isso eu te ensino no aulao de 3 horas ao vivo. Sem sermao, sem julgamento. Por quem viveu o vicio e encontrou o caminho.
+
+Clica aqui e entra.</textarea>
+  <div class="row">
+    <button class="primary" onclick="copyTP(this)">Copiar tudo</button>
+    <button onclick="toggleSpecs(this)">Specs de edicao + headline</button>
+  </div>
+  <div class="specs">
+    <h4>Headline nativa fixa (na tela)</h4>
+    <div class="hl">SEU CEREBRO FOGE DO QUE DOI. E POR ISSO VOCE NAO CONSEGUE PARAR.</div>
+    <h4>Edicao basica</h4>
+    <ul>
+      <li><b>Duracao:</b> ~50s &middot; <b>Proporcao:</b> 9:16</li>
+      <li><b>Enquadramento:</b> plano medio intimista, luz suave, tom de acolhimento. Sem urgencia.</li>
+      <li><b>Hook 0-3s:</b> "O seu cerebro nao ta do seu lado nessa batalha." pause curta.</li>
+      <li><b>Legendas:</b> queimadas; destaque em "medo", "presos", "juiz", "sentenca".</li>
+      <li><b>Corte:</b> mais lento/respirado. Este e o video mais empatico da serie.</li>
+      <li><b>Card final:</b> azul, "QUERO ENTRAR NO AULAO" + R$162,10.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- V7 -->
+<div class="card">
+  <h3>V7 <span class="tag video">VIDEO</span><span class="tag style">Todo domingo / compromisso</span></h3>
+  <p class="ang">Angulo: acessibilidade + compromisso como parte da cura &middot; estrutura Oferta + Prova + CTA</p>
+  <div class="hl-fix">TODO MES TEM UM DOMINGO AS 19H QUE PODE MUDAR A SUA VIDA</div>
+  <div class="tp-label"><span>Teleprompter (bruto)</span><span class="count">~50s</span></div>
+  <textarea class="tp" readonly>Todo mes tem um domingo as 19 horas que pode mudar a trajetoria da sua vida.
+
+Sao 3 horas ao vivo comigo. Voce aprende o metodo, entende o que esta te prendendo, faz perguntas e sai com uma estrutura de 6 meses pra trabalhar os 3 pilares: o fisico, o mental e o espiritual.
+
+Nao e video gravado que voce assiste e esquece. E ao vivo. Domingo, 19 horas. Tem compromisso. E esse compromisso ja faz parte da cura.
+
+Eu tenho a teoria e a pratica. Me formei em psicanalise, estudei neurociencia comportamental, e vivi o vicio na pele. Perdi mais de um milhao de reais e encontrei o caminho de volta.
+
+Por 162 reais voce entra nesse domingo as 19h. Se nao gostar, pede seu reembolso.
+
+O link ta aqui embaixo.</textarea>
+  <div class="row">
+    <button class="primary" onclick="copyTP(this)">Copiar tudo</button>
+    <button onclick="toggleSpecs(this)">Specs de edicao + headline</button>
+  </div>
+  <div class="specs">
+    <h4>Headline nativa fixa (na tela)</h4>
+    <div class="hl">TODO MES TEM UM DOMINGO AS 19H QUE PODE MUDAR A SUA VIDA</div>
+    <h4>Edicao basica</h4>
+    <ul>
+      <li><b>Duracao:</b> ~50s &middot; <b>Proporcao:</b> 9:16</li>
+      <li><b>Enquadramento:</b> plano medio, expressao esperancosa. Tom de convite genuino.</li>
+      <li><b>Hook 0-3s:</b> "Todo mes tem um domingo as 19 horas que pode mudar a trajetoria da sua vida."</li>
+      <li><b>Overlay:</b> ao falar "3 pilares", subir texto "FISICO + MENTAL + ESPIRITUAL" na tela.</li>
+      <li><b>Legendas:</b> queimadas; destaque em "domingo", "19h", "6 meses", "compromisso".</li>
+      <li><b>Card final:</b> azul, "ENTRAR NO PROXIMO AULAO" + R$162,10 + "Domingo, 19h".</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ============ IMAGEM ============ -->
+<h2 class="sec" id="imagem">Imagem &mdash; 7 criativos estaticos</h2>
+<p class="sub">Mesmo padrao visual dos criativos da sessao. Fundo escuro, foto talking-head do Gabriel. Azul #2563EB. Pouco texto na tela. Faixa de preco visivel no CTA.</p>
+
+<div class="legend">
+  <h4>Hierarquia visual</h4>
+  <p>Igual criativos da sessao: T1 (hook maior) maior que T2 (sub) maior que T3 (mecanismo/autoridade). CTA no rodape, alto contraste.</p>
+  <table>
+    <tr><th>Nivel</th><th>O que e</th><th>Tamanho relativo</th><th>Como destacar</th></tr>
+    <tr><td><span class="tier t1">T1</span> Hook</td><td>1a linha, topo</td><td><b>MAIOR</b> (100%)</td><td>Pilula azul (badge) ou outline condensado gigante.</td></tr>
+    <tr><td><span class="tier t2">T2</span> Sub</td><td>qualifier logo abaixo</td><td>medio (~55% do T1)</td><td>Negrito, branco, sem caixa.</td></tr>
+    <tr><td><span class="tier t3">T3</span> Mecanismo</td><td>corpo</td><td>menor (~40% do T1)</td><td>Caixa escura semi-transparente, palavra-chave em negrito.</td></tr>
+    <tr><td><span class="tier cta">CTA</span> CTA</td><td>rodape</td><td>~T2, alto contraste</td><td>Pilula branca ou barra azul. Sempre incluir o preco R$162,10.</td></tr>
+  </table>
+</div>
+
+<div class="card">
+  <h3>I1 <span class="tag img">IMAGEM</span><span class="tag style">Estilo A &middot; Presos da mente</span></h3>
+  <div class="imgrow">
+    <div class="mockwrap">
+      <div class="mock">
+        <span class="photo-tag">foto talking-head</span>
+        <div class="m-badge">Os presos da sua mente te empurram pro vicio</div>
+        <div class="m-sub">e voce nem sabe quem eles sao.</div>
+        <div class="m-body">3h ao vivo com o metodo pra identificar, julgar e <b>soltar cada trauma</b>. Ao vivo. Com perguntas.</div>
+        <div class="m-auth">Por quem viveu o vicio e se libertou.</div>
+        <div class="m-cta-pill">Entrar no aulao: R$162,10</div>
+      </div>
+      <p class="mockcap">mock proporcional 9:16</p>
+    </div>
+    <div class="beatcol">
+      <p class="beat"><b><span class="tier t1">T1</span>Hook &middot; badge pilula azul &middot; MAIOR</b>OS PRESOS DA SUA MENTE TE EMPURRAM PRO VICIO</p>
+      <p class="beat"><b><span class="tier t2">T2</span>Sub</b>e voce nem sabe quem eles sao.</p>
+      <p class="beat"><b><span class="tier t3">T3</span>Mecanismo &middot; caixa, menor</b>3h ao vivo com o metodo pra identificar, julgar e <b>soltar cada trauma</b>. Com perguntas abertas.</p>
+      <p class="beat"><b><span class="tier t3">T3</span>Autoridade &middot; menor</b>Por quem viveu o vicio e se libertou. Psicanalista.</p>
+      <p class="beat"><b><span class="tier cta">CTA</span>Pilula branca com preco</b>ENTRAR NO AULAO: R$162,10</p>
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <h3>I2 <span class="tag img">IMAGEM</span><span class="tag style">Estilo A &middot; Voce e o juiz</span></h3>
+  <div class="imgrow">
+    <div class="mockwrap">
+      <div class="mock">
+        <span class="photo-tag">foto talking-head</span>
+        <div class="m-badge">Voce e o juiz dos seus traumas</div>
+        <div class="m-sub">mas nunca teve coragem de dar a sentenca.</div>
+        <div class="m-body">Aulao de 3h ao vivo pra <b>identificar, julgar e soltar</b> os presos que alimentam o vicio.</div>
+        <div class="m-auth">Psicanalista que viveu o vicio na pele.</div>
+        <div class="m-cta-pill">Quero aprender o metodo</div>
+      </div>
+      <p class="mockcap">mock proporcional 9:16</p>
+    </div>
+    <div class="beatcol">
+      <p class="beat"><b><span class="tier t1">T1</span>Hook &middot; badge &middot; MAIOR</b>VOCE E O JUIZ DOS SEUS TRAUMAS</p>
+      <p class="beat"><b><span class="tier t2">T2</span>Sub</b>mas nunca teve coragem de dar a sentenca.</p>
+      <p class="beat"><b><span class="tier t3">T3</span>Mecanismo &middot; caixa, menor</b>Aulao de 3h ao vivo pra <b>identificar, julgar e soltar</b> os presos que alimentam o vicio.</p>
+      <p class="beat"><b><span class="tier t3">T3</span>Autoridade &middot; menor</b>Psicanalista que viveu o vicio na pele.</p>
+      <p class="beat"><b><span class="tier cta">CTA</span>Pilula branca</b>QUERO APRENDER O METODO: R$162,10</p>
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <h3>I3 <span class="tag img">IMAGEM</span><span class="tag style">Estilo B + barra &middot; Numero real</span></h3>
+  <div class="imgrow">
+    <div class="mockwrap">
+      <div class="mock">
+        <span class="photo-tag">footage escuro / palco</span>
+        <div class="m-h1 outline">R$ 1.378.000</div>
+        <div class="m-sub">Foi o que eu perdi no vicio. E encontrei o caminho de volta.</div>
+        <div class="m-body">Agora ensino o metodo em 3h ao vivo. <b>3 pilares. 6 meses de estrutura.</b></div>
+        <div class="m-cta-bar">Entrar no aulao: R$162,10</div>
+      </div>
+      <p class="mockcap">mock proporcional 9:16</p>
+    </div>
+    <div class="beatcol">
+      <p class="beat"><b><span class="tier t1">T1</span>Hook &middot; outline condensado GIGANTE &middot; MAIOR</b>R$ 1.378.000</p>
+      <p class="beat"><b><span class="tier t2">T2</span>Sub</b>FOI O QUE EU PERDI NO VICIO. E ENCONTREI O CAMINHO DE VOLTA.</p>
+      <p class="beat"><b><span class="tier t3">T3</span>Mecanismo &middot; menor</b>Agora ensino o metodo em 3h ao vivo. <b>3 pilares. 6 meses de estrutura.</b></p>
+      <p class="beat"><b><span class="tier cta">CTA</span>Barra azul no rodape</b>ENTRAR NO AULAO: R$162,10</p>
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <h3>I4 <span class="tag img">IMAGEM</span><span class="tag style">Estilo A &middot; Escavar onde doi</span></h3>
+  <div class="imgrow">
+    <div class="mockwrap">
+      <div class="mock">
+        <span class="photo-tag">foto talking-head</span>
+        <div class="m-badge">Voce teve coragem de escavar onde doi?</div>
+        <div class="m-sub">E la que esta a raiz do vicio.</div>
+        <div class="m-body">3h ao vivo pra aprender a <b>identificar seus traumas e dar a sentenca</b>. Com estrutura de 6 meses.</div>
+        <div class="m-auth">Psicanalista e neurociencia comportamental.</div>
+        <div class="m-cta-pill">Quero entrar no aulao</div>
+      </div>
+      <p class="mockcap">mock proporcional 9:16</p>
+    </div>
+    <div class="beatcol">
+      <p class="beat"><b><span class="tier t1">T1</span>Hook &middot; badge &middot; MAIOR</b>VOCE TEVE CORAGEM DE ESCAVAR ONDE DOI?</p>
+      <p class="beat"><b><span class="tier t2">T2</span>Sub</b>E la que esta a raiz do vicio.</p>
+      <p class="beat"><b><span class="tier t3">T3</span>Mecanismo &middot; caixa, menor</b>3h ao vivo pra <b>identificar seus traumas e dar a sentenca</b>. Com estrutura de 6 meses.</p>
+      <p class="beat"><b><span class="tier t3">T3</span>Autoridade &middot; menor</b>Psicanalista e neurociencia comportamental.</p>
+      <p class="beat"><b><span class="tier cta">CTA</span>Pilula branca</b>QUERO ENTRAR NO AULAO: R$162,10</p>
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <h3>I5 <span class="tag img">IMAGEM</span><span class="tag style">Estilo A &middot; Reframe de preco</span></h3>
+  <div class="imgrow">
+    <div class="mockwrap">
+      <div class="mock">
+        <span class="photo-tag">foto talking-head</span>
+        <div class="m-badge">10% do salario minimo. 3 horas com Gabriel.</div>
+        <div class="m-sub">e voce sai com o mapa dos proximos 6 meses.</div>
+        <div class="m-body">Pilares fisico, mental e espiritual. <b>Ao vivo. Com perguntas abertas.</b> Por quem perdeu R$1,3 mi e encontrou o caminho.</div>
+        <div class="m-cta-pill">Quero entrar</div>
+      </div>
+      <p class="mockcap">mock proporcional 9:16</p>
+    </div>
+    <div class="beatcol">
+      <p class="beat"><b><span class="tier t1">T1</span>Hook &middot; badge &middot; MAIOR</b>10% DO SALARIO MINIMO. 3 HORAS COM GABRIEL.</p>
+      <p class="beat"><b><span class="tier t2">T2</span>Sub</b>e voce sai com o mapa dos proximos 6 meses.</p>
+      <p class="beat"><b><span class="tier t3">T3</span>Mecanismo &middot; caixa, menor</b>Pilares fisico, mental e espiritual. <b>Ao vivo. Com perguntas abertas.</b></p>
+      <p class="beat"><b><span class="tier t3">T3</span>Autoridade &middot; menor</b>Por quem perdeu R$1,3 mi e encontrou o caminho de volta.</p>
+      <p class="beat"><b><span class="tier cta">CTA</span>Pilula branca</b>QUERO ENTRAR: R$162,10</p>
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <h3>I6 <span class="tag img">IMAGEM</span><span class="tag style">Estilo B + barra &middot; Uma noite</span></h3>
+  <div class="imgrow">
+    <div class="mockwrap">
+      <div class="mock">
+        <span class="photo-tag">footage escuro</span>
+        <div class="m-h1">Uma noite ao vivo pode mudar o rumo da sua vida.</div>
+        <div class="m-body">Se voce tiver coragem de escavar onde doi. 3h com metodo das 3 camadas + estrutura de 6 meses.</div>
+        <div class="m-hl">Teoria e pratica de quem viveu o vicio</div>
+        <div class="m-cta-bar">Entrar no aulao: R$162,10</div>
+      </div>
+      <p class="mockcap">mock proporcional 9:16</p>
+    </div>
+    <div class="beatcol">
+      <p class="beat"><b><span class="tier t1">T1</span>Headline &middot; outline &middot; MAIOR</b>UMA NOITE AO VIVO PODE MUDAR O RUMO DA SUA VIDA.</p>
+      <p class="beat"><b><span class="tier t3">T3</span>Corpo &middot; menor</b>Se voce tiver coragem de escavar onde doi. 3h com metodo das 3 camadas + estrutura de 6 meses.</p>
+      <p class="beat"><b><span class="tier hl">HL</span>Destaque &middot; frase em azul</b>TEORIA E PRATICA DE QUEM VIVEU O VICIO NA PELE.</p>
+      <p class="beat"><b><span class="tier cta">CTA</span>Barra azul no rodape</b>ENTRAR NO AULAO: R$162,10</p>
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <h3>I7 <span class="tag img">IMAGEM</span><span class="tag style">Estilo A &middot; Garantia + desafio</span></h3>
+  <div class="imgrow">
+    <div class="mockwrap">
+      <div class="mock">
+        <span class="photo-tag">foto talking-head</span>
+        <div class="m-badge">R$ 162,10. Se nao gostar, pede de volta.</div>
+        <div class="m-sub">Mas se ficar, vai entender por que nao conseguiu parar.</div>
+        <div class="m-body">3h ao vivo: metodo pra identificar e soltar os traumas que <b>alimentam o vicio nas 3 camadas</b>.</div>
+        <div class="m-auth">Psicanalista e neurociencia comportamental.</div>
+        <div class="m-cta-pill">Quero garantir minha vaga</div>
+      </div>
+      <p class="mockcap">mock proporcional 9:16</p>
+    </div>
+    <div class="beatcol">
+      <p class="beat"><b><span class="tier t1">T1</span>Hook &middot; badge &middot; MAIOR</b>R$ 162,10. SE NAO GOSTAR, PEDE DE VOLTA.</p>
+      <p class="beat"><b><span class="tier t2">T2</span>Sub</b>Mas se ficar, vai entender por que nao conseguiu parar.</p>
+      <p class="beat"><b><span class="tier t3">T3</span>Mecanismo &middot; caixa, menor</b>3h ao vivo: metodo pra identificar e soltar os traumas que <b>alimentam o vicio nas 3 camadas</b>.</p>
+      <p class="beat"><b><span class="tier t3">T3</span>Autoridade &middot; menor</b>Psicanalista e neurociencia comportamental.</p>
+      <p class="beat"><b><span class="tier cta">CTA</span>Pilula branca</b>QUERO GARANTIR MINHA VAGA: R$162,10</p>
+    </div>
+  </div>
+</div>
+
+<!-- ============ META ADS ============ -->
+<h2 class="sec" id="meta">Copy Meta Ads</h2>
+<p class="sub">Produto: <b>A Última Aposta &mdash; Aula ao Vivo</b> &middot; R$162,10 &middot; CTA recomendado: <b>Saiba mais</b> (link Greenn pendente, substituir [LINK_AULAO]).</p>
+
+<h3 style="margin:18px 0 4px">Texto Principal <span class="pill">primary text</span></h3>
+<div class="copyblock"><b>TP1</b> Cada trauma nao resolvido e um preso dentro do seu cerebro te empurrando pro vicio. Voce tenta parar. Volta. Jura que e a ultima vez. Volta de novo. Isso nao e fraqueza sua, e o seu cerebro funcionando do jeito que foi programado pelo medo. Todo mes tem um domingo as 19h: 3 horas ao vivo com Gabriel pra identificar esses presos, dar a sentenca e comecar a se libertar. R$162,10. Clica em saiba mais.</div>
+<div class="copyblock"><b>TP2</b> Eu perdi um milhao trezentos e setenta e oito mil reais. Calculei tudo: as dividas, os imoveis que tive que vender, as despesas que o vicio me causou. Me formei em psicanalise e estudei neurociencia comportamental. O que eu aprendi foi que o vicio nao esta no jogo. Esta nos traumas que a gente nunca teve coragem de enfrentar. Esse metodo eu ensino em 3 horas ao vivo, domingo as 19h, por R$162,10. Se nao gostar, pede seu reembolso. Mas se ficar, vai entender o que anos de tentativa sozinho nao te ensinaram.</div>
+<div class="copyblock"><b>TP3</b> Quanto tempo voce ja passou tentando parar sozinho? E nesse tempo, quanto voce perdeu? Todo mes tem um domingo as 19h: 3 horas ao vivo com Gabriel pra entender por que nao conseguiu, descobrir os traumas que alimentam o vicio e sair com mapa de 6 meses nos 3 pilares: o fisico, o mental e o espiritual. Nao e video gravado. E ao vivo. Voce faz perguntas, Gabriel responde na hora. Por 162 reais. 10% de um salario minimo.</div>
+<div class="copyblock"><b>TP4</b> Voce ja calculou quanto o vicio te custou? Dinheiro, paz, familia, emprego. Junta tudo. Agora me diz: 162 reais e 3 horas ao vivo domingo as 19h vale pra entender de onde vem isso e o que fazer pra sair? Isso e o menor investimento na sua libertacao. E se voce acha que nao pode investir 10% do que ganha na sua propria cura, talvez ainda nao decidiu sair de verdade. Mas se decidiu, o link ta aqui.</div>
+<div class="copyblock"><b>TP5</b> Todo mes tem um domingo as 19h que pode mudar a trajetoria da sua vida. Sao 3 horas ao vivo comigo. Voce aprende o metodo, entende o que esta te prendendo, faz perguntas e sai com estrutura de 6 meses pra trabalhar os 3 pilares. Tenho a teoria e a pratica. Vivi o vicio, me libertei, me formei em psicanalise e neurociencia comportamental. Por R$162,10. Sem julgamento. Sem sermao.</div>
+
+<h3 style="margin:18px 0 4px">Titulo <span class="pill">headline &middot; max 40</span></h3>
+<div class="copyblock"><b>T1</b> Entenda a raiz do seu vicio &nbsp; <b>T2</b> Aulao ao vivo domingo, 19h<br><b>T3</b> 3 horas que ensinam o caminho &nbsp; <b>T4</b> Solte os traumas que te prendem<br><b>T5</b> Por que voce nao consegue parar?</div>
+
+<h3 style="margin:18px 0 4px">Descricao <span class="pill">description &middot; max 40</span></h3>
+<div class="copyblock"><b>D1</b> 3h ao vivo, domingo 19h, R$162,10 &nbsp; <b>D2</b> Metodo 3 camadas + 6 meses<br><b>D3</b> Por quem viveu o vicio na pele &nbsp; <b>D4</b> Ao vivo com perguntas abertas<br><b>D5</b> Se nao gostar, pede reembolso</div>
+
+<h3 style="margin:18px 0 4px">Combinacoes sugeridas (ad sets)</h3>
+<table>
+  <tr><th>Ad</th><th>Texto Principal</th><th>Titulo</th><th>Descricao</th><th>Angulo</th></tr>
+  <tr><td>A</td><td>TP1</td><td>T5</td><td>D1</td><td>Presos da mente / por que nao para</td></tr>
+  <tr><td>B</td><td>TP2</td><td>T2</td><td>D3</td><td>Autoridade + prova (R$1,3 mi)</td></tr>
+  <tr><td>C</td><td>TP3</td><td>T3</td><td>D2</td><td>Reframe de tempo + oferta clara</td></tr>
+  <tr><td>D</td><td>TP4</td><td>T1</td><td>D5</td><td>Reframe de preco + garantia</td></tr>
+  <tr><td>E</td><td>TP5</td><td>T4</td><td>D4</td><td>Domingo / acessibilidade + compromisso</td></tr>
+</table>
+
+<!-- ============ NOTAS ============ -->
+<h2 class="sec" id="notas">Notas de producao</h2>
+<div class="note">
+  &bull; CTA leva ao link de pagamento do aulao (Greenn). Substituir [LINK_AULAO] pelo link real apos criar no Greenn.<br>
+  &bull; Compliance: posicionamento <b>psicanalista</b>. NAO usar "cura garantida", "tratamento medico". Preferir "libertacao", "metodo", "estrutura", "caminho".<br>
+  &bull; Numero R$1.378.000 e real (dado por Gabriel na gravacao da VSL). So usar se Gabriel autorizar formalmente.<br>
+  &bull; Garantia de reembolso: validar com Gabriel se oferece e em qual prazo antes de usar esse angulo nos anuncios.<br>
+  &bull; Tom: fraterno, simples, de quem viveu. Sem jargao. Trocar "dopamina" por "cerebro te empurrando". Trocar "neuroplasticidade" por "o seu cerebro foi programado assim".<br>
+  &bull; Sem travessao "--" em nenhuma peca (cara de IA). Usar ponto, virgula ou dois-pontos.<br>
+  &bull; Cadencia confirmada: <b>todo mes, domingo as 19h</b>. Atualizar data exata do proximo aulao nos anuncios antes de veicular.<br>
+  &bull; Depoimentos: so usar com autorizacao + prova coletada. Ate la manter genericos como no criativo atual.
+</div>
+
+</div><!-- /wrap -->
+
+<script>
+function toggleSpecs(btn){
+  var specs = btn.closest('.card').querySelector('.specs');
+  var open = specs.classList.toggle('open');
+  btn.textContent = open ? 'Fechar specs' : 'Specs de edicao + headline';
+}
+function copyTP(btn){
+  var ta = btn.closest('.card').querySelector('textarea.tp');
+  var txt = ta.value;
+  var done = function(){
+    var orig = btn.textContent;
+    btn.textContent = 'Copiado!';
+    btn.classList.add('copied');
+    setTimeout(function(){ btn.textContent = orig; btn.classList.remove('copied'); }, 1600);
+  };
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(txt).then(done, function(){ fallback(ta); done(); });
+  } else { fallback(ta); done(); }
+}
+function fallback(ta){ ta.focus(); ta.select(); try{ document.execCommand('copy'); }catch(e){} }
+</script>
+</body>
+</html>
